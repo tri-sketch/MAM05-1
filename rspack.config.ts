@@ -30,7 +30,7 @@ export default withZephyr()({
     // You need to set a unique value that is not equal to other applications
     uniqueName: "superapp",
     // publicPath must be configured if using manifest
-    publicPath: "http://localhost:8080/",
+    publicPath: "http://localhost:8081/",
   },
 
   experiments: {
@@ -90,3 +90,4 @@ export default withZephyr()({
     ],
   },
 });
+
