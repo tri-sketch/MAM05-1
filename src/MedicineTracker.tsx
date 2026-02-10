@@ -1,5 +1,4 @@
-import ReactDOM from "react-dom/client";
-import { useState } from "react"; 
+import React from "react"; 
 
 import "./index.css";
 

@@ -2,9 +2,9 @@ import React from "react";
 import HabitTracker from "./HabitTracker";
 import { useState } from "react"; 
 
-import "./src/index.css";
-import logoImage from './src/icons/logo-transparent.png';
-import iconImage from './src/icons/beat.png';
+import "./index.css";
+import logoImage from './icons/logo-transparent.png';
+import iconImage from './icons/beat.png';
 
 type ActiveApp = "habitTracker" | "medicineTracker" | "heartRateMonitor";
 function NavigationMenu({
@@ -47,8 +47,8 @@ function NavigationMenu({
   );
 };
 
-const App = () => {
-  const [activeApp, setActiveApp] = useState("habitTracker");
+const Header = () => {
+  const [activeApp, setActiveApp] = useState<ActiveApp>("habitTracker");
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-sky-100 to-blue-100">
@@ -76,7 +76,7 @@ const App = () => {
 
         <main className="p-5 mx-4 md:mx-6 lg:mx-8 mt-4">
         {activeApp === "habitTracker" && <HabitTracker />}
-        {activeApp === "medicationTracker" && (
+        {activeApp === "medicineTracker" && (
           <div>Medication tracker UI goes here…</div>
         )}
         {activeApp === "heartRateMonitor" && (
@@ -90,5 +90,5 @@ const App = () => {
 
 
 
-export default NavigationMenu;
+export default Header;
 
