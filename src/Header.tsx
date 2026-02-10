@@ -5,6 +5,7 @@ import { useState } from "react";
 import "./index.css";
 import logoImage from './icons/logo-transparent.png';
 import iconImage from './icons/beat.png';
+import { MedicineTracker } from "./MedicineTracker";
 
 type ActiveApp = "habitTracker" | "medicineTracker" | "heartRateMonitor";
 function NavigationMenu({
@@ -76,9 +77,7 @@ const Header = () => {
 
         <main className="p-5 mx-4 md:mx-6 lg:mx-8 mt-4">
         {activeApp === "habitTracker" && <HabitTracker />}
-        {activeApp === "medicineTracker" && (
-          <div>Medication tracker UI goes here…</div>
-        )}
+        {activeApp === "medicineTracker" && <MedicineTracker />}
         {activeApp === "heartRateMonitor" && (
           <div>Heart rate monitor UI goes here…</div>
         )}
