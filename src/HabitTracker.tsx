@@ -75,6 +75,8 @@ const HabitTracker = () => {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [habitTitle, setHabitTitle] = useState("");
+  const [goalInput, setGoalInput] = useState("");
 
   const GET_HABITS = `
     query GetHabits {
@@ -129,23 +131,25 @@ const HabitTracker = () => {
   }, []);
 
   const createHabit = async () => {
-    const habit_title = prompt("Enter habit title");
-    const goalInput = prompt("Enter habit goal");
-    if (!habit_title || !goalInput) return;
-
-    const goal = parseInt(goalInput, 10);
-    if (Number.isNaN(goal)) {
-      alert("Goal must be a number");
-      return;
-    }
+    if (!habitTitle || !goalInput) return;
+      const goal = parseInt(goalInput, 10);
+      if (Number.isNaN(goal)) {
+        alert("Goal must be a number!")
+        return;
+      }
+    
     try {
       await graphqlFetch<{ insert_habit_table_one: Habit }>(INSERT_HABIT, {
-        habit_title,
+        habit_title: habitTitle,
         goal,
       });
+      setHabitTitle("");
+      setGoalInput("");
+      setIsOpen(false);
       await loadHabits();
-    } catch (e: any) {
-      alert(e.message ?? "Failed to create habit");
+    }
+    catch (e: any) {
+      setError(e.message ?? "Failed to create habit");
     }
   };
 
@@ -168,10 +172,7 @@ const HabitTracker = () => {
         <div className="flex justify-between gap-4 items-center">
           <h1 className="text-2xl font-bold">Habit Tracker</h1>
           <div className="flex gap-2">
-            <button onClick={() => setIsOpen(true)}>Open Modal</button>
-            <button
-              onClick={createHabit}
-              className="px-4 py-2 rounded bg-blue-500 text-white font-semibold hover:bg-blue-600 items-right">
+            <button onClick={() => setIsOpen(true)} className="px-4 py-2 rounded bg-blue-500 text-white font-semibold hover:bg-blue-600">
               Add Habit
             </button>
           </div>
@@ -180,8 +181,29 @@ const HabitTracker = () => {
         This is where you can track manage your habits.
       </p>
       <Portal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <h2>Modal Content</h2>
-        <p>This content is rendered outside the App component!</p>
+        <h2 className="text-xl font-bold mb-4">Add new habit</h2>
+        <div className="flex flex-col gap-3">
+          <input
+            type="text"
+            placeholder="Habit title"
+            value={habitTitle}
+            onChange={(e) => setHabitTitle(e.target.value)}
+            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="number"
+            placeholder="Goal (times per week)"
+            value={goalInput}
+            onChange={(e) => setGoalInput(e.target.value)}
+            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            onClick={createHabit}
+            className="px-4 py-2 rounded bg-blue-500 text-white font-semibold hover:bg-blue-600"
+          >
+            Create Habit
+          </button>
+        </div>
       </Portal>
     
     <div className="flex flex-col mt-2 w-full">
