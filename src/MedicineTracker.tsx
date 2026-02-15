@@ -314,8 +314,8 @@ export const MedicineTracker = () => {
 
   return (
     <><div className="flex flex-col gap-4 p-5 bg-white border-2 border-blue-200 rounded-2xl shadow-sm mx-4 md:mx-6 lg:mx-8 mt-4">
-        <div className="flex flex-wrap gap-4 items-center">
-          <h1 className="text-2xl font-bold mb-4">Medication Tracker</h1>
+        <div className="flex justify-between gap-4 items-center">
+          <h1 className="text-2xl font-bold">Medication Tracker</h1>
           <div className="flex- gap-2">
             <button onClick={() => setIsOpen(true)} className="px-4 py-2 rounded bg-blue-500 text-white font-semibold hover:bg-blue-600">
               Add Medication
